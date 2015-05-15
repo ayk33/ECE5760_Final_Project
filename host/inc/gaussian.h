@@ -20,20 +20,7 @@
 #endif
 
 
-//! @brief Blurs the given image using the CPU algorithm
-//!
-//! @param imgname The string literal of the image
-//! @param size The size of the gaussian kernel
-//! @param sigma The sigma parameter for the gaussian kernel
-//! @return Returns true for success or false for failure
 char gaussian_blur_ARM(char* imgname,uint32_t size,float sigma);
-float* createGaussianKernel(uint32_t size,float sigma);
-//! @brief Blurs the given image using the GPU
-//!
-//! @param imgname The string literal of the image
-//! @param size The size of the gaussian kernel
-//! @param sigma The sigma parameter for the gaussian kernel
-//! @return Returns true for success or false for failure
 char gaussian_blur_FPGA(char* imgname,uint32_t size,float sigma);
 
 #endif

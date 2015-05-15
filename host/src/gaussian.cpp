@@ -21,31 +21,6 @@ cl_uint num_devices;
 
 using namespace aocl_utils;
 
-//creates a gaussian kernel
-float* createGaussianKernel(uint32_t size,float sigma)
-{
-    float* ret;
-    uint32_t x,y;
-    double center = size/2;
-    float sum = 0;
-    //allocate and create the gaussian kernel
-    ret = (float *)malloc(sizeof(float) * size * size);
-    for(x = 0; x < size; x++)
-    {
-        for(y=0; y < size; y++)
-        {
-            ret[ y*size+x] = exp( (((x-center)*(x-center)+(y-center)*(y-center))/(2.0f*sigma*sigma))*-1.0f ) / (2.0f*PI_*sigma*sigma);
-            sum+=ret[ y*size+x];
-        }
-    }
-    //normalize
-    for(x = 0; x < size*size;x++)
-    {
-        ret[x] = ret[x]/sum;
-    }
-  
-    return ret;
-}
 
 //Blurs the given image using the CPU algorithm
 char gaussian_blur_ARM(char* imgname,uint32_t size,float sigma)

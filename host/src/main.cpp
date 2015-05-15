@@ -18,13 +18,13 @@ using namespace aocl_utils;
 int main() 
 {
     double units;
-    int num_iters = 50; 
+    int num_iters = 1;
     //gaussian blur parameters
-    uint32_t gaussianSize = 3;
-    float gaussianSigma = .8;
+    uint32_t gaussianSize = 9;
+    float gaussianSigma = 4;
     
     //bilateral filter parameters
-    uint32_t bilateralRadius = 3;
+    uint32_t bilateralRadius = 5;
     float bilateralSigma_squared = .0025;
 
     char imgname[] = "image1.BMP";//the name of the image file, taken by the arguments
@@ -43,7 +43,7 @@ int main()
     printf("%d iterations time: %0.3f seconds\n", num_iters, elapsed_time_guassian_fpga);
     printf("Average single iteration time: %0.3f seconds\n", elapsed_time_guassian_fpga / num_iters);
     printf("Throughput = %0.3f FPS\n", (float)(num_iters/elapsed_time_guassian_fpga));
-    
+    /*
     //Running Gaussian Filter on ARM core and timing it.
     double start_time_gaussian_arm = getCurrentTimestamp();
     printf("\nFilter type: Gaussian - ARM\n");
@@ -93,7 +93,7 @@ int main()
    
     printf("Finished filtering image\n");
     //cleanup(); 
-
+*/
     return 0;
 }
 

@@ -1,0 +1,36 @@
+(THIS IS ASSUMING THE FPGA DIP SWITCHS MSEL ARE ALREADY SET TO 01010 AND MICROSD CARD ALREADY LOADED WITH LINUX)
+
+New kernel steps:
+STEP 1: use opencl to recompile the kernel (regenerate the Hardware file (AOCX))
+	In the command prompt, navigate to top directory of the project and use aoc to compile
+	"aoc -v device/hello_world.cl -o bin/hello_world.aocx --board de1soc_sharedonly
+
+STEP 2: Use the soc embedded shell to remake the project
+	Navigate to the top project directory that contains the make file and type Make
+
+STEP 3: Copy over the newely generated .rbf file (top.rbf should be default name) over to the FPGA's microsd card 
+	MAKE SURE TO RENAME IT TO "opencl.rbf"
+
+STEP 4: Boot up the FPGA with the SD card back. Start putty and connected through serial to the FPGA. (COM# and Baud rate of 115200)
+	Login with root
+
+STEP 5: type "source ./init_opencl.sh"
+
+STEP 6: Back on the host computer:
+	Copy over your generated hardware file and executable file to a usb drive (hello_world and helloworld.aocx)
+
+STEP 7: Plug that into the FPGA 
+
+STEP 8: type fdisk -l to find your flash drive (will return something like "sda1")
+
+STEP 9: type "mkdir /media/usb"
+
+STEP 10: type "mount /dev/sda1(or w/e flash drive name is) /media/usb
+
+STEP 11: Copy the files off of flash drive to a folder in /home/root/(your project directory)
+
+STEP 12: Change directory to your project directory and type the following to program the FPGA:
+	"aocl program /dev/acl0 hello_world.aocx" 
+	 This will configuate the FPGA with opencl hardware.
+
+STEP 13: Type "./hello_world" to run your kernel
